@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diário da Asula</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+    
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: url('https://i.pinimg.com/originals/1b/8e/05/1b8e05a4c6a4a1d4b5d4b5e4d4b5e4d5.gif') center/cover;
+      opacity: 0.7;
+    }
+    
+    .background-overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, rgba(255, 214, 231, 0.8), rgba(255, 179, 209, 0.8));
+    }
+    
+    body {
+      position: relative;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: transparent;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .floral-decoration {
+      font-size: 2.5em;
+      color: #ff85a2;
+      text-shadow: 0 0 10px rgba(255, 192, 203, 0.7);
+      animation: float 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .floral-decoration:hover {
+      transform: scale(1.2) rotate(15deg);
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+    
+    .floral-decoration.left {
+      animation-delay: 0.5s;
+    }
+    
+    .floral-decoration.right {
+      animation-delay: 1s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    header h1 {
+      font-weight: 700;
+      color: #c94f7c;
+      margin-bottom: 5px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(255, 192, 203, 0.5);
+    }
+    .photos {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .main-photo {
+      text-align: center;
+    }
+    .main-photo img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #f9a1c7;
+      box-shadow: 0 4px 8px rgba(201, 79, 124, 0.3);
+      margin-bottom: 10px;
+    }
+    .main-photo p {
+      font-weight: 700;
+      color: #b34875;
+      font-size: 1.3em;
+    }
+    .friends-photos {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      width: 100%;
+      max-width: 480px;
+    }
+    .friend {
+      text-align: center;
+      max-width: 220px;
+    }
+    .friend img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #f9a1c7;
+      box-shadow: 0 4px 8px rgba(201, 79, 124, 0.3);
+      margin-bottom: 8px;
+    }
+    .friend p.name {
+      font-weight: 700;
+      color: #b34875;
+      margin-bottom: 6px;
+    }
+    .friend p.description {
+      font-size: 0.9em;
+      color: #925068;
+      font-style: italic;
+      line-height: 1.3;
+    }
+    main {
+      width: 100%;
+      max-width: 600px;
+      background: rgba(255, 240, 245, 0.9);
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(201, 79, 124, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 192, 203, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    main::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(45deg, #ffb6c1, #ff69b4, #ffb6c1);
+      z-index: -1;
+      border-radius: 20px;
+      opacity: 0.2;
+      animation: gradient 8s ease infinite;
+      background-size: 200% 200%;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    h2 {
+      color: #b34875;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 700;
+    }
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+    .drawing {
+      background: #f9c5d1;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(201, 79, 124, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .drawing img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(201, 79, 124, 0.4);
+    }
+    .story {
+      font-style: italic;
+      color: #7a3f59;
+      max-width: 550px;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
+    .vote-buttons {
+      display: flex;
+      gap: 20px;
+    }
+    .vote-buttons button {
+      background-color: #c94f7c;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-weight: 700;
+      font-size: 1em;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      flex: 1;
+      user-select: none;
+    }
+    .vote-buttons button:hover {
+      background-color: #b34875;
+    }
+    .vote-buttons button:disabled {
+      background-color: #e7a5be;
+      cursor: default;
+    }
+    label {
+      font-weight: 600;
+      color: #c94f7c;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      border-radius: 10px;
+      border: 2px solid #f9a1c7;
+      padding: 12px;
+      font-size: 1em;
+      resize: vertical;
+      font-family: 'Montserrat', sans-serif;
+      transition: border-color 0.3s;
+    }
+    textarea:focus {
+      border-color: #c94f7c;
+      outline: none;
+    }
+    button.send-comment {
+      margin-top: 15px;
+      background-color: #c94f7c;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-weight: 700;
+      font-size: 1em;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+    button.send-comment:hover {
+      background-color: #b34875;
+    }
+    #statusMsg {
+      margin-top: 20px;
+      font-weight: 600;
+      text-align: center;
+      color: #b34875;
+      min-height: 24px;
+    }
+    .warning {
+      font-size: 0.9em;
+      color: #c94f7c;
+      margin-top: 12px;
+      text-align: center;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-overlay"></div>
+
+  <header>
+    <div class="floral-decoration left">🌸</div>
+    <h1>Diário da Asula</h1>
+    <div class="floral-decoration right">🌸</div>
+  </header>
+
+  <section class="photos">
+    <div class="main-photo">
+      <img src="https://media.discordapp.net/attachments/1382229702739230730/1383324748590878765/19811bdf8568baf4ace893e113d6f339.png?ex=684e6110&is=684d0f90&hm=95bb0bbb7d5d96644933490a33da2d92d12cd815826441de3cc6bdb03b451b26&=&format=webp&quality=lossless&width=282&height=282" alt="Foto Asula" />
+      <p>Asula</p>
+      <p style="max-width: 380px; color:#925068; font-style: italic; margin-top: 8px;">
+        Oi, eu sou a Asula, e meu sonho é ser pintora. Adoro desenhar e mostrar meus desenhos para as pessoas. Amo passar horas em call com minha amiga Satty, que é uma pessoa muito especial pra mim. Aqui você vai conhecer um pouco do meu mundo, onde a arte e a amizade iluminam meus dias.
+      </p>
+    </div>
+
+    <div class="friends-photos">
+      <div class="friend">
+        <img src="https://media.discordapp.net/attachments/1382229702739230730/1383314418863046686/IMG_20240928_154305_832.webp?ex=684e5772&is=684d05f2&hm=aac8feafb1c67f04e4f1f992a89278b697949391814a6fbadbe720477685f86e&=&format=webp&width=495&height=880" alt="Foto Satty" />
+        <p class="name">Satty</p>
+        <p class="description">Satty é minha amiga incrível com quem adoro passar horas em call. Ela é linda, carinhosa e sempre me apoia. Nossa amizade é um tesouro que guardo com muito carinho.</p>
+      </div>
+      <div class="friend">
+        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Foto 50" />
+        <p class="name">50</p>
+        <p class="description">50 é meu amigo que me faz feliz com seu jeito único. Sempre sabe como me animar e trazer sorriso nos meus dias. Sou grata por ter ele por perto.</p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <h2>Meus Desenhos - Vote e Comente</h2>
+
+    <section class="gallery">
+      <div class="drawing" data-id="1">
+        <img src="https://media.discordapp.net/attachments/1382229702739230730/1382233089622806622/image.png?ex=684e5ce1&is=684d0b61&hm=048f4fc1c0710004c9cacf7b9a5e32b7114680175c5b2a6a72f1ef776591dfff&=&format=webp&quality=lossless&width=1267&height=733" alt="Desenho 1 - Asula" />
+        <p class="story">❤️ Era uma vez um casal muito feliz que morava numa casinha colorida à beira de um campo verdejante. Eles tinham um amor tão forte que até o coração deles ficava brilhando no céu, mostrando para o mundo inteiro a felicidade que sentiam. O sol, que também era amigo deles, sorria todos os dias para aquecer e iluminar seus momentos juntos. O casal gostava de passar horas em chamadas, conversando e rindo, sempre compartilhando carinho e momentos especiais. Apesar das dificuldades, eles sabiam que, juntos, podiam superar tudo e manter aquele coração feliz para sempre.</p>
+        <div class="vote-buttons">
+          <button onclick="votar(1, true, this)">👍 Gostei</button>
+          <button onclick="votar(1, false, this)">👎 Não gostei</button>
+        </div>
+      </div>
+
+      <div class="drawing" data-id="2">
+        <img src="https://media.discordapp.net/attachments/1382229702739230730/1382956427307516005/image.png?ex=684db2ca&is=684c614a&hm=3b2800995a8aa28b075528b17e2a375ff97abb09b184dc6c44a3ba1b3746fa85&=&format=webp&quality=lossless&width=1244&height=708" alt="Desenho 2 - Asula" />
+        <p class="story">⛵ Em um dia ensolarado, um grupo de amigos resolveu embarcar numa aventura pelo mar dourado. No barco chamado "Ásula", eles navegavam pelo oceano de sonhos e descobertas. Cada um tinha uma missão: explorar novos mundos, enfrentar desafios e, principalmente, se divertir juntos. A paisagem era linda, com o sol brilhando intensamente e as árvores na costa balançando com o vento suave. Enquanto navegavam, um deles usava uma corda para tentar pescar algo especial, uma metáfora para o que buscavam: amizade verdadeira, coragem e a magia das pequenas coisas da vida.</p>
+        <div class="vote-buttons">
+          <button onclick="votar(2, true, this)">👍 Gostei</button>
+          <button onclick="votar(2, false, this)">👎 Não gostei</button>
+        </div>
+      </div>
+    </section>
+
+    <label for="comentario">Deixe um comentário sobre mim:</label>
+    <textarea id="comentario" placeholder="Escreva aqui..."></textarea>
+    <button class="send-comment" onclick="enviarComentario()">Enviar Comentário</button>
+    <div id="statusMsg"></div>
+    <p class="warning">* Seu comentário e votos serão enviados para o meu Discord pessoal 💌</p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Inicializa as partículas
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 120, density: { enable: true, value_area: 800 } },
+          color: { value: ["#ff85a2", "#ffb6c1", "#ff69b4"] },
+          shape: { 
+            type: ["circle", "heart"],
+            stroke: { width: 0, color: "#ff0000" },
+            polygon: { nb_sides: 5 }
+          },
+          opacity: { value: 0.7, random: true },
+          size: { value: 5, random: true, anim: { enable: true, speed: 3, size_min: 1 } },
+          line_linked: { enable: true, distance: 150, color: "#ffb6c1", opacity: 0.4, width: 1.5 },
+          move: { 
+            enable: true, 
+            speed: 3, 
+            direction: "none", 
+            random: true, 
+            straight: false, 
+            out_mode: "bounce",
+            bounce: true,
+            attract: { enable: true, rotateX: 600, rotateY: 1200 }
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "bubble" },
+            onclick: { enable: true, mode: "push" },
+            resize: true
+          },
+          modes: {
+            bubble: {
+              distance: 200,
+              size: 10,
+              duration: 2,
+              opacity: 0.8,
+              speed: 3
+            },
+            push: { particles_nb: 4 }
+          }
+        },
+        retina_detect: true
+      });
+    });
+    const webhookURL = "https://discord.com/api/webhooks/1383325468773712042/tD21e43IA84vu5QCiqmIzg2fxHpWu0IvoywjDuwY345Dp-uXRBS_Gr-hUcT-s-XxboZb";
+
+    function votar(desenhoId, gostou, botao) {
+      // Desabilita os botões para não votar duas vezes no mesmo desenho
+      const container = botao.parentElement;
+      const botoes = container.querySelectorAll("button");
+      botoes.forEach(btn => btn.disabled = true);
+
+      // Monta mensagem pro Discord
+      const texto = `🖼️ Voto no Desenho ${desenhoId}: ${gostou ? "Gostei 👍" : "Não gostei 👎"}`;
+
+      enviarParaDiscord(texto);
+    }
+
+    async function enviarComentario() {
+      const comentario = document.getElementById('comentario').value.trim();
+      const status = document.getElementById('statusMsg');
+      if (!comentario) {
+        status.style.color = "#c94f7c";
+        status.textContent = "⚠️ Por favor, escreva um comentário antes de enviar.";
+        return;
+      }
+
+      status.style.color = "#b34875";
+      status.textContent = "Enviando... 💌";
+
+      try {
+        const body = { content: `💬 Novo comentário sobre Asula:\n\n${comentario}` };
+        const response = await fetch(webhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        if (response.ok) {
+          status.style.color = "#4caf50";
+          status.textContent = "✅ Comentário enviado com sucesso!";
+          document.getElementById('comentario').value = "";
+        } else {
+          throw new Error("Erro ao enviar comentário");
+        }
+      } catch (error) {
+        status.style.color = "#c94f7c";
+        status.textContent = "❌ Falha ao enviar comentário. Tente novamente.";
+      }
+    }
+
+    async function enviarParaDiscord(mensagem) {
+      try {
+        await fetch(webhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: mensagem })
+        });
+      } catch (e) {
+        console.error("Erro ao enviar voto para Discord:", e);
+      }
+    }
+  </script>
+
+</body>
+</html>
