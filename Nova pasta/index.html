@@ -14,7 +14,14 @@
       height: 100%;
       z-index: -2;
       background: url('https://i.pinimg.com/originals/1b/8e/05/1b8e05a4c6a4a1d4b5d4b5e4d4b5e4d5.gif') center/cover;
-      opacity: 0.7;
+      opacity: 0;
+      animation: fadeIn 2s ease-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      to {
+        opacity: 0.7;
+      }
     }
     
     .background-overlay {
@@ -85,8 +92,21 @@
       color: #c94f7c;
       margin-bottom: 5px;
       font-family: 'Dancing Script', cursive;
-      font-size: 2.5em;
+      font-size: 3em;
       text-shadow: 2px 2px 4px rgba(255, 192, 203, 0.5);
+      position: relative;
+      animation: fadeInDown 1s ease-out;
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     .photos {
       display: flex;
@@ -145,15 +165,32 @@
     }
     main {
       width: 100%;
-      max-width: 600px;
-      background: rgba(255, 240, 245, 0.9);
-      padding: 25px 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 30px rgba(201, 79, 124, 0.2);
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 192, 203, 0.3);
+      max-width: 700px;
+      background: rgba(255, 240, 245, 0.95);
+      padding: 30px 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(201, 79, 124, 0.25);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 192, 203, 0.4);
       position: relative;
       overflow: hidden;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 1s ease-out forwards;
+      animation-delay: 0.3s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    main:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(201, 79, 124, 0.3);
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     
     main::before {
@@ -191,11 +228,34 @@
     .drawing {
       background: #f9c5d1;
       border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 4px 12px rgba(201, 79, 124, 0.25);
+      padding: 20px;
+      box-shadow: 0 6px 16px rgba(201, 79, 124, 0.25);
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: all 0.3s ease;
+      transform: scale(0.98);
+      opacity: 0;
+      animation: fadeInScale 0.6s ease-out forwards;
+    }
+    
+    .drawing:nth-child(1) { animation-delay: 0.6s; }
+    .drawing:nth-child(2) { animation-delay: 0.8s; }
+    
+    .drawing:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 25px rgba(201, 79, 124, 0.35);
+    }
+    
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(0.98);
+      }
     }
     .drawing img {
       max-width: 100%;
@@ -220,14 +280,45 @@
       background-color: #c94f7c;
       color: white;
       border: none;
-      padding: 10px 18px;
+      padding: 12px 20px;
       font-weight: 700;
-      font-size: 1em;
+      font-size: 1.05em;
       border-radius: 12px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: all 0.3s ease;
       flex: 1;
       user-select: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .vote-buttons button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%, -50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .vote-buttons button:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
     }
     .vote-buttons button:hover {
       background-color: #b34875;
@@ -310,12 +401,12 @@
 
     <div class="friends-photos">
       <div class="friend">
-        <img src="https://media.discordapp.net/attachments/1382229702739230730/1383314418863046686/IMG_20240928_154305_832.webp?ex=684e5772&is=684d05f2&hm=aac8feafb1c67f04e4f1f992a89278b697949391814a6fbadbe720477685f86e&=&format=webp&width=495&height=880" alt="Foto Satty" />
+        <img src="https://media.discordapp.net/attachments/1382229702739230730/1383684504853676032/20250609_200939.jpg?ex=684fb01d&is=684e5e9d&hm=9bf5047fa7c7e828d444985932a791181456223db3c06ee4b47e757dc07b8978&=&format=webp&width=574&height=766" alt="Foto Satty" />
         <p class="name">Satty</p>
         <p class="description">Satty é minha amiga incrível com quem adoro passar horas em call. Ela é linda, carinhosa e sempre me apoia. Nossa amizade é um tesouro que guardo com muito carinho.</p>
       </div>
       <div class="friend">
-        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Foto 50" />
+        <img src="https://media.discordapp.net/attachments/1381172137074626634/1383329715804438579/image.png?ex=684f0e71&is=684dbcf1&hm=262c9620776fcb1e79178dd16bcf983935776a2f6edf07a28f4d0c5ddc7b3b84&=&format=webp&quality=lossless&width=237&height=261" alt="Foto 50" />
         <p class="name">50</p>
         <p class="description">50 é meu amigo que me faz feliz com seu jeito único. Sempre sabe como me animar e trazer sorriso nos meus dias. Sou grata por ter ele por perto.</p>
       </div>
@@ -323,12 +414,12 @@
   </section>
 
   <main>
-    <h2>Meus Desenhos - Vote e Comente</h2>
+    <h2>Meus Desenhos </h2>
 
     <section class="gallery">
       <div class="drawing" data-id="1">
-        <img src="https://media.discordapp.net/attachments/1382229702739230730/1382233089622806622/image.png?ex=684e5ce1&is=684d0b61&hm=048f4fc1c0710004c9cacf7b9a5e32b7114680175c5b2a6a72f1ef776591dfff&=&format=webp&quality=lossless&width=1267&height=733" alt="Desenho 1 - Asula" />
-        <p class="story">❤️ Era uma vez um casal muito feliz que morava numa casinha colorida à beira de um campo verdejante. Eles tinham um amor tão forte que até o coração deles ficava brilhando no céu, mostrando para o mundo inteiro a felicidade que sentiam. O sol, que também era amigo deles, sorria todos os dias para aquecer e iluminar seus momentos juntos. O casal gostava de passar horas em chamadas, conversando e rindo, sempre compartilhando carinho e momentos especiais. Apesar das dificuldades, eles sabiam que, juntos, podiam superar tudo e manter aquele coração feliz para sempre.</p>
+        <img src="https://media.discordapp.net/attachments/1382229702739230730/1382233089622806622/image.png?ex=684fae61&is=684e5ce1&hm=81fac31b7ddd4d7168b1e5296e46fbdaa28677b2c3be856bbca3f423ce452056&=&format=webp&quality=lossless&width=1267&height=733" alt="Desenho 1 - Asula" />
+        <p class="story"> Era uma vez um casal muito feliz que morava numa casinha colorida à beira de um campo verdejante. Eles tinham um amor tão forte que até o coração deles ficava brilhando no céu, mostrando para o mundo inteiro a felicidade que sentiam. O sol, que também era amigo deles, sorria todos os dias para aquecer e iluminar seus momentos juntos. O casal gostava de passar horas em chamadas, conversando e rindo, sempre compartilhando carinho e momentos especiais. Apesar das dificuldades, eles sabiam que, juntos, podiam superar tudo e manter aquele coração feliz para sempre.</p>
         <div class="vote-buttons">
           <button onclick="votar(1, true, this)">👍 Gostei</button>
           <button onclick="votar(1, false, this)">👎 Não gostei</button>
@@ -336,7 +427,7 @@
       </div>
 
       <div class="drawing" data-id="2">
-        <img src="https://media.discordapp.net/attachments/1382229702739230730/1382956427307516005/image.png?ex=684db2ca&is=684c614a&hm=3b2800995a8aa28b075528b17e2a375ff97abb09b184dc6c44a3ba1b3746fa85&=&format=webp&quality=lossless&width=1244&height=708" alt="Desenho 2 - Asula" />
+        <img src="https://media.discordapp.net/attachments/1382229702739230730/1382956427307516005/image.png?ex=684fad0a&is=684e5b8a&hm=a5337bf9f10af4ccd8421b816c1f7fb5362abf58ad890ab1d3081416cda05e07&=&format=webp&quality=lossless&width=1244&height=708" alt="Desenho 2 - Asula" />
         <p class="story">⛵ Em um dia ensolarado, um grupo de amigos resolveu embarcar numa aventura pelo mar dourado. No barco chamado "Ásula", eles navegavam pelo oceano de sonhos e descobertas. Cada um tinha uma missão: explorar novos mundos, enfrentar desafios e, principalmente, se divertir juntos. A paisagem era linda, com o sol brilhando intensamente e as árvores na costa balançando com o vento suave. Enquanto navegavam, um deles usava uma corda para tentar pescar algo especial, uma metáfora para o que buscavam: amizade verdadeira, coragem e a magia das pequenas coisas da vida.</p>
         <div class="vote-buttons">
           <button onclick="votar(2, true, this)">👍 Gostei</button>
